@@ -34,6 +34,7 @@ rm data/v2_Annotations_Val_mscoco.zip
 wget -P data https://imagecaption.blob.core.windows.net/imagecaption/trainval.zip
 wget -P data https://imagecaption.blob.core.windows.net/imagecaption/test2014.zip
 wget -P data https://imagecaption.blob.core.windows.net/imagecaption/test2015.zip
+## next
 unzip data/trainval.zip -d data
 unzip data/test2014.zip -d data
 unzip data/test2015.zip -d data

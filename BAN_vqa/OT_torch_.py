@@ -210,7 +210,7 @@ def row_pairwise_distances(x, y=None, dist_mat=None):
 
 def IPOT_barycenter(p, C, q, iteration=20, beta=0.5, iteration_inner = 1):
 	'''
-
+	sinknorm for barycenter
 	:param p: probability vector set, K x n
 	:param C: cost matrix, K x n x n
 	:param q: initial q, mean of all support, n x d
@@ -221,7 +221,7 @@ def IPOT_barycenter(p, C, q, iteration=20, beta=0.5, iteration_inner = 1):
 	assert(C.size(1)==C.size(2))
 	assert(C.size(1)==p.size(1))
 	b = torch.ones(K, int(n), 1).cuda().detach()/float(n) # bs * m * 1
-	C = torch.exp(-C/beta)
+	C = torch.exp(-C/beta) # exp(-C/beta)
 	T = torch.ones(K, n, n).cuda().detach().float()
 	q = torch.unsqueeze(q, 0)
 	for t in range(iteration):
@@ -235,10 +235,23 @@ def IPOT_barycenter(p, C, q, iteration=20, beta=0.5, iteration_inner = 1):
 
 
 def IPOT_distance_torch_batch_uniform(C, bs, n, m, iteration=50):
+	'''
+	gat the optimal transport distance with Sinkhorm
+	Args:
+		C: cost matrix
+		bs:
+		n:
+		m:
+		iteration:
+
+	Returns:
+
+	'''
 	C = C.float().cuda()
+	# Sinkhorm
 	T = IPOT_torch_batch_uniform(C, bs, n, m, iteration=iteration)
-	temp = torch.bmm(torch.transpose(C,1,2), T)
-	distance = batch_trace(temp, m, bs)
+	temp = torch.bmm(torch.transpose(C,1,2), T) # (C^T)T
+	distance = batch_trace(temp, m, bs) # 取出迹， 作为矩阵的内积tr(Q^TT)=<Q,T>
 	return -distance
 
 def IPOT_distance_torch_batch_uniform_T(C, bs, n, m, iteration=50):
@@ -250,7 +263,19 @@ def IPOT_distance_torch_batch_uniform_T(C, bs, n, m, iteration=50):
 
 
 def IPOT_torch_batch_uniform(C, bs, n, m, beta=0.5, iteration=50):
-	# C is the distance matrix
+	'''
+	Sinkhorn algorithm, with unifiorm distribution
+	Args:
+		C: cost matirx:distance matrix  bs*n*m
+		bs: batch_size
+		n: source dim
+		m: target dim
+		beta: A=exp(-C/beta)
+		iteration:
+
+	Returns:
+			T: transition matrix
+	'''
 	# c: bs by n by m
 	sigma = torch.ones(bs, int(m), 1).cuda()/float(m)
 	T = torch.ones(bs, n, m).cuda()
@@ -259,9 +284,9 @@ def IPOT_torch_batch_uniform(C, bs, n, m, beta=0.5, iteration=50):
 		Q = A * T # bs * n * m
 		for k in range(1):
 			delta = 1 / (n * torch.bmm(Q, sigma))
-			a = torch.bmm(torch.transpose(Q,1,2), delta)
+			a = torch.bmm(torch.transpose(Q,1,2), delta) # Q^T delta
 			sigma = 1 / (float(m) * a)
-		T = delta * Q * sigma.transpose(2,1)
+		T = delta * Q * sigma.transpose(2,1) # diag(delta)Q\diag(\simga)
 
 	return T#.detach()
 
@@ -270,8 +295,8 @@ def GW_distance(X, Y, p, q, lamda=0.5, iteration=5, OT_iteration=20):
 	'''
 	:param X, Y: Source and target embeddings , batchsize by embed_dim by n
 	:param p, q: probability vectors
-	:param lamda: regularization
-	:return: GW distance
+	:param lamda: regularization which uses in sinkhorn
+	:return: GW distance: L= C_{st} - 2C_s T C_t^T, T=sinkhorm(L), D_{GW}=<L,T>=tr(L^T T)
 	'''
 	Cs = cos_batch_torch(X, X).float().cuda()
 	Ct = cos_batch_torch(Y, Y).float().cuda()
@@ -279,28 +304,42 @@ def GW_distance(X, Y, p, q, lamda=0.5, iteration=5, OT_iteration=20):
 	bs = Cs.size(0)
 	m = Ct.size(2)
 	n = Cs.size(2)
+	# L= C_{st} - 2C_s T C_t^T, T=sinkhorm(L)
 	T, Cst = GW_torch_batch(Cs, Ct, bs, n, m, p, q, beta=lamda, iteration=iteration, OT_iteration=OT_iteration)
+	# inner product with matrix
 	temp = torch.bmm(torch.transpose(Cst,1,2), T)
 	distance = batch_trace(temp, m, bs)
 	return distance
 
 def GW_torch_batch(Cs, Ct, bs, n, m, p, q, beta=0.5, iteration=5, OT_iteration=20):
+	'''
+	Computing Gromov-wasserstein disatnce with sinkhorn
+	Args:
+		Cs: source pair-distance matrix
+		Ct: target pair-distance matrix
+		bs:
+		n:
+		m:
+		p: probability vectors ,marginal distribution on source domain
+		q: probability vectors ,marginal distribution on target domain
+		beta:
+		iteration:
+		OT_iteration:
+
+	Returns:
+		T, pseudo-cost matrix Cgamma C_{st} - 2C_s T C_t^T
+	'''
 	one_m = torch.ones(bs, m, 1).float().cuda()
 	one_n = torch.ones(bs, n, 1).float().cuda()
-
+	# compute cross-domain similarities C_{st} = C_x^2 p I_m^T + C_tq(C_t^2)^T
 	Cst = torch.bmm(torch.bmm(Cs**2, p), torch.transpose(one_m, 1, 2)) + \
 	      torch.bmm(one_n, torch.bmm(torch.transpose(q,1,2), torch.transpose(Ct**2, 1, 2))) # bs by n by m
-	gamma = torch.bmm(p, q.transpose(2,1)) # outer product, init
+	gamma = torch.bmm(p, q.transpose(2,1)) # outer product pq^T, init T (transition matrix)
 	# gamma = torch.einsum('bi,bj->bij', (torch.squeeze(p), torch.squeeze(q))) # outer product, initialization
 	for i in range(iteration):
+		# pseudo-cost matrix
 		C_gamma = Cst - 2 * torch.bmm(torch.bmm(Cs, gamma), torch.transpose(Ct, 1, 2))
-		# # Sinkhorn iteration
-		# b = torch.ones(bs, m, 1).cuda()
-		# K = torch.exp(-C_gamma/beta)
-		# for i in range(50):cd
-		# 	a = p/(torch.bmm(K, b))
-		# 	b = q/torch.bmm(K.transpose(1,2), a)
-		# gamma = a * K * b
+		#Sinkhorn iteration to get transition matrix T
 		gamma = IPOT_torch_batch_uniform(C_gamma, bs, n, m, beta=beta, iteration=OT_iteration)
 	Cgamma = Cst - 2 * torch.bmm(torch.bmm(Cs, gamma), torch.transpose(Ct, 1, 2))
 	return gamma.detach(), Cgamma
@@ -322,6 +361,18 @@ def GW_torch_batch(Cs, Ct, bs, n, m, p, q, beta=0.5, iteration=5, OT_iteration=2
 # 	return gamma.detach(), Cgamma
 
 def GW_distance_uniform(X, Y, lamda=1e-1, iteration=5, OT_iteration=20):
+	'''
+	sourse domain with distance matrix X ,and target with Y, to compute the pair transport between two domains, with marginal probability uniform
+	Args:
+		X: distance matrix in source domain
+		Y: distance matrix in target domain
+		lamda:
+		iteration: GW iterate
+		OT_iteration: sinknorm iterate
+
+	Returns:
+
+	'''
 	m = X.size(2)
 	n = Y.size(2)
 	bs = X.size(0)
@@ -337,6 +388,16 @@ def batch_diag(a_emb, n, bs):
 	# diagonal bs by n by n
 
 def batch_trace(input_matrix, n, bs):
+	'''
+	get trace of batch
+	Args:
+		input_matrix: (C^T)(T), a matrx with bs*n*n
+		n:
+		bs:
+
+	Returns:
+		sum_i^{n} input_matrix_ii
+	'''
 	a = torch.eye(n).cuda().unsqueeze(0).repeat(bs, 1, 1)
 	b = a * input_matrix
 	return torch.sum(torch.sum(b,-1),-1).unsqueeze(1)

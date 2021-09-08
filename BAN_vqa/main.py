@@ -31,7 +31,7 @@ def parse_args():
     parser.add_argument('--tfidf', action='store_false', help='tfidf word embedding?')
     parser.add_argument('--input', type=str, default=None)
     parser.add_argument('--output', type=str, default='saved_models/ban')
-    parser.add_argument('--batch_size', type=int, default=128) #128
+    parser.add_argument('--batch_size', type=int, default=2) #128
     parser.add_argument('--seed', type=int, default=1204, help='random seed')
     args = parser.parse_args()
     return args

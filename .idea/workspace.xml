@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="1fc71066-d072-4566-8fe8-37dac2479ff5" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="JupyterTrust" id="bd1368b1-6536-4e37-8e6d-1cf5a6e5eb65" />
+  <component name="ProjectId" id="1xpsQtN9kNu4NbHA9wcmcd1zvTo" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../ban-vqa" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+  </component>
+  <component name="RunManager">
+    <configuration name="main" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Graph-Optimal-Transport" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/BAN_vqa" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/BAN_vqa/main.py" />
+      <option name="PARAMETERS" value="--use_both --use_vg" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.main" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="1fc71066-d072-4566-8fe8-37dac2479ff5" name="Default Changelist" comment="" />
+      <created>1631063351131</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1631063351131</updated>
+      <workItem from="1631063352381" duration="12640000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="2290" y="-176" width="1337" height="682" key="#Deployment" timestamp="1631064419158">
+      <screen x="1600" y="-437" width="2194" height="1217" />
+    </state>
+    <state x="2290" y="-176" width="1337" height="682" key="#Deployment/1600.-437.2194.1217/0.0.1600.870@1600.-437.2194.1217" timestamp="1631064419158" />
+    <state x="2152" y="-180" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1631065099120">
+      <screen x="1600" y="-437" width="2194" height="1217" />
+    </state>
+    <state x="2152" y="-180" key="#com.intellij.execution.impl.EditConfigurationsDialog/1600.-437.2194.1217/0.0.1600.870@1600.-437.2194.1217" timestamp="1631065099120" />
+    <state x="2466" y="-80" key="FileChooserDialogImpl" timestamp="1631065404690">
+      <screen x="1600" y="-437" width="2194" height="1217" />
+    </state>
+    <state x="2466" y="-80" key="FileChooserDialogImpl/1600.-437.2194.1217/0.0.1600.870@1600.-437.2194.1217" timestamp="1631065404690" />
+    <state width="1499" height="336" key="GridCell.Tab.0.bottom" timestamp="1631065366579">
+      <screen x="1600" y="-437" width="2194" height="1217" />
+    </state>
+    <state width="1499" height="336" key="GridCell.Tab.0.bottom/1600.-437.2194.1217/0.0.1600.870@1600.-437.2194.1217" timestamp="1631065366579" />
+    <state width="1499" height="336" key="GridCell.Tab.0.center" timestamp="1631065366579">
+      <screen x="1600" y="-437" width="2194" height="1217" />
+    </state>
+    <state width="1499" height="336" key="GridCell.Tab.0.center/1600.-437.2194.1217/0.0.1600.870@1600.-437.2194.1217" timestamp="1631065366579" />
+    <state width="1499" height="336" key="GridCell.Tab.0.left" timestamp="1631065366579">
+      <screen x="1600" y="-437" width="2194" height="1217" />
+    </state>
+    <state width="1499" height="336" key="GridCell.Tab.0.left/1600.-437.2194.1217/0.0.1600.870@1600.-437.2194.1217" timestamp="1631065366579" />
+    <state width="1499" height="336" key="GridCell.Tab.0.right" timestamp="1631065366579">
+      <screen x="1600" y="-437" width="2194" height="1217" />
+    </state>
+    <state width="1499" height="336" key="GridCell.Tab.0.right/1600.-437.2194.1217/0.0.1600.870@1600.-437.2194.1217" timestamp="1631065366579" />
+    <state x="2229" y="-189" key="SettingsEditor" timestamp="1631064375838">
+      <screen x="1600" y="-437" width="2194" height="1217" />
+    </state>
+    <state x="2229" y="-189" key="SettingsEditor/1600.-437.2194.1217/0.0.1600.870@1600.-437.2194.1217" timestamp="1631064375838" />
+    <state x="2437" y="51" key="com.jetbrains.plugins.remotesdk.ui.RemoteMappingsConfiguration" timestamp="1631064374401">
+      <screen x="1600" y="-437" width="2194" height="1217" />
+    </state>
+    <state x="2437" y="51" key="com.jetbrains.plugins.remotesdk.ui.RemoteMappingsConfiguration/1600.-437.2194.1217/0.0.1600.870@1600.-437.2194.1217" timestamp="1631064374401" />
+    <state x="2390" y="-95" width="613" height="520" key="find.popup" timestamp="1631079029846">
+      <screen x="1600" y="-437" width="2194" height="1217" />
+    </state>
+    <state x="2390" y="-95" width="613" height="520" key="find.popup/1600.-437.2194.1217/0.0.1600.870@1600.-437.2194.1217" timestamp="1631079029846" />
+    <state x="2583" y="-104" key="ftp.server.browser" timestamp="1631064414493">
+      <screen x="1600" y="-437" width="2194" height="1217" />
+    </state>
+    <state x="2583" y="-104" key="ftp.server.browser/1600.-437.2194.1217/0.0.1600.870@1600.-437.2194.1217" timestamp="1631064414493" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/Graph_Optimal_Transport$main.coverage" NAME="main Coverage Results" MODIFIED="1631065366573" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/BAN_vqa" />
+  </component>
+</project>
